@@ -27,4 +27,4 @@ hs_err_pid*
 .settings/
 bin/
 gradle/
-test/
+src/test/
