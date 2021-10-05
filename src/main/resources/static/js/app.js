@@ -1,8 +1,7 @@
-import test from "./Components/test.js";
+import Route from "./Core/Route.js";
 
 window.onload	= () => {
 	let $app	= document.querySelector('#app');
 
-	let aaa	= new test();
-	aaa.render();
+	new Route($app);
 }

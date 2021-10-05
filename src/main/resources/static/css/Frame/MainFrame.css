@@ -1,0 +1,36 @@
+#app {
+    width   : 99vw;
+    padding : 0px;
+}
+
+.mcommon {
+    border  : solid 1px #000000;
+    margin  : 0px;
+}
+
+header {
+    height  : 10vh;
+}
+
+.mcenter {
+    float   : left;
+    height  : 75vh;
+    margin  : 5px 5px 5px 0px;
+}
+
+nav {
+    width   : 20vw;
+}
+
+main {
+    width   : 65vw;
+}
+
+aside {
+    
+}
+
+footer {
+    height  : 10vh;
+    clear   : both;
+}
