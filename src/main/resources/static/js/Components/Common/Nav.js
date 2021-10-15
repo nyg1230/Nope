@@ -1,9 +1,9 @@
-export default class NopeFooter extends HTMLElement {
+export default class NopeNav extends HTMLElement {
     constructor() {
         super();
 
         this.innerHTML  = `
-            푸터
+            나비
         `
     }
 
@@ -11,4 +11,4 @@ export default class NopeFooter extends HTMLElement {
         
     }
 }
-customElements.define('nope-footer', NopeFooter);
+customElements.define('nope-nav', NopeNav);

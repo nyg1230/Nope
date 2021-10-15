@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class test {
     
-    @Scheduled(cron = "*/20 * * * * *")
+    // @Scheduled(cron = "*/20 * * * * *")
     public void testtest() {
         // System.out.println("test");
         try {

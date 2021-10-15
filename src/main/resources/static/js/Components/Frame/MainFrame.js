@@ -1,36 +1,26 @@
-import Component from "../../Core/Component.js";
-import Footer from "../Common/Footer.js";
-import Header from "../Common/Header.js";
-import Navig from "../Common/Navig.js";
+import NopeFooter from "../Common/Footer.js";
+import NopeHeader from "../Common/Header.js";
+import NopeMain from "../Common/Main.js";
+import NopeNav from "../Common/Nav.js";
 
-export default class MainFrame extends Component {
+export default class MainFrame extends HTMLElement {
+    constructor() {
+        super();
+    }
 
-	setup() {}
+    connectedCallback() {
+        this.innerHTML  = `
+            <style>
+                @import url('/css/Frame/MainFrame.css');
+            </style>
 
-	template() {
-		return `
-			<link rel='stylesheet' href='/css/Frame/MainFrame.css'>
-			<header class='mcommon'></header>
-			<nav class='mcommon mcenter'></nav>
-			<main class='mcommon mcenter'></main>
-			<aside class='mcommon mcenter'></aside>
-			<footer class='mcommon'></footer>
-		`
-	}
-
-	mounted() {
-		let {comp, search}	= {...this.props};
-
-		let $header	= this.$target.querySelector('header');
-		new Header($header);
-
-		let $nav	= this.$target.querySelector('nav');
-		new Navig($nav)
-		
-		let $main	= this.$target.querySelector('main');
-		if(comp) new comp($main, { search : search});
-
-		let $footer	= this.$target.querySelector('footer');
-		new Footer($footer);
-	}
+            <nope-header class='mcommon header'></nope-header>
+            <nope-nav class='mcommon nav mcenter'></nope-nav>
+            <nope-main class='mcommon main mcenter'></nope-main>
+            <aside class='mcommon aside mcenter'></aside>
+            <nope-footer class='mcommon footer'></nope-footer>
+        `
+    }
 }
+
+customElements.define('main-frame', MainFrame);

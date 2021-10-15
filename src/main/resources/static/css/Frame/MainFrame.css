@@ -8,8 +8,10 @@
     margin  : 0px;
 }
 
-header {
+.header {
+    display : inline-block;
     height  : 10vh;
+    width   : 99.5%;
 }
 
 .mcenter {
@@ -18,19 +20,21 @@ header {
     margin  : 5px 5px 5px 0px;
 }
 
-nav {
+.nav {
     width   : 20vw;
 }
 
-main {
+.main {
     width   : 65vw;
 }
 
-aside {
+.aside {
     
 }
 
-footer {
+.footer {
+    display : inline-block;
+    width   : 99.5%;
     height  : 10vh;
-    clear   : both;
+    
 }

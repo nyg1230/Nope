@@ -1,11 +1,15 @@
-import Component from "../../Core/Component.js";
+import UserState from "../Header/UserState.js";
 
-export default class Header extends Component {
+export default class NopeHeader extends HTMLElement {
+    constructor() {
+        super();
+    }
 
-	template() {
-		return `
-			헤더
-		`
-	}
-	
+    connectedCallback() {
+        let $root  = this.attachShadow({mode : 'open'});
+        $root.innerHTML = `
+            <user-state></user-state>
+        `
+    }
 }
+customElements.define('nope-header', NopeHeader);
