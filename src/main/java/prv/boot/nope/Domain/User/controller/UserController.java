@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import prv.boot.nope.Common.Util.token.JWTToken;
+import prv.boot.nope.Common.Util.Mail.MailAccount;
+import prv.boot.nope.Common.Util.Mail.MailSender;
+import prv.boot.nope.Common.Util.Token.JWTToken;
 import prv.boot.nope.Domain.User.model.service.UserService;
 
 @RestController
@@ -30,6 +32,24 @@ public class UserController {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return "a";
+    }
+
+    @GetMapping("/mailTest")
+    public String mailTest() {
+        // 127.0.0.1:8887/public/api/user/mailTest
+        try {
+            MailSender mailSender   = new MailSender(MailAccount.ADMIN);
+
+            boolean result  = mailSender.setTO("nyg1230@gmail.com")
+                                        .setTitle("퉤스트")
+                                        .setContent(true, "<html><h1>앍</h1></html>")
+                                        .send();
+            System.out.println(result);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
         return "a";
     }
 }

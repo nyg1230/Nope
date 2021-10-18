@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import prv.boot.nope.Common.Util.CustomUtil;
-import prv.boot.nope.Common.Util.token.JWTToken;
+import prv.boot.nope.Common.Util.Token.JWTToken;
 
 public class ApiTokenCheckInterceptor implements HandlerInterceptor {
 
@@ -26,6 +26,6 @@ public class ApiTokenCheckInterceptor implements HandlerInterceptor {
 
 		if(!_verify) res.sendRedirect(req.getContextPath() + "/");
 
-		return _verify;
+		return !_verify;
 	}
 }

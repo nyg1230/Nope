@@ -27,4 +27,8 @@ public class CustomException extends RuntimeException {
 		return errorMap;
 	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getName() + "\n" + this.errorCode + " : " + this.message;
+	}
 }

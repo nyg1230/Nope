@@ -1,4 +1,4 @@
-package prv.boot.nope.Common.Util.token;
+package prv.boot.nope.Common.Util.Token;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 
