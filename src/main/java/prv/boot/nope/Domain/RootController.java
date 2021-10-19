@@ -1,22 +1,30 @@
 package prv.boot.nope.Domain;
 
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import prv.boot.nope.Common.Util.Mail.MailAccount;
-import prv.boot.nope.Common.Util.Mail.MailSender;
-import prv.boot.nope.Common.Util.Mail.MailTemplate;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class RootController implements ErrorController {
 	
 	private final String DEFAULT_PATH	= "index";
 
-	@Value("${nope.mail.template.path}")
-	String test;
+	// js language pack start
+	@Value("${nope.lang-pack-path:/js/language/}")
+	private String langPackPath;
+
+	@Value("#{${nope.lang-pack}}")
+	private Map<String, String> langPack;
+
+	@Value("#{${nope.lang-pack}['kor'] ?: 'langKor.js'}")
+	private String defaulLangPack;
+
+	// js language pack end
 
 	@GetMapping("/")
 	public String indexPath() {
@@ -28,23 +36,13 @@ public class RootController implements ErrorController {
 		return DEFAULT_PATH;
 	}
 
-	@GetMapping("/a")
-	public String aaaa() {
+	@GetMapping("/lang-pack")
+	@ResponseBody
+	public String test(@RequestParam(value = "lang", defaultValue = "kr") String lang) {
 
-		try {
-			MailSender mailSender   = new MailSender(MailAccount.ADMIN);
+		String jsLangPack	= langPackPath + ((langPack.get(lang) != null) ? langPack.get(lang) : defaulLangPack);
 
-            boolean result  = mailSender.setTO("nyg1230@gmail.com")
-                                        .setTitle("퉤스트")
-                                        .setContent(true, MailTemplate.CERTIFICATION.getTemplate(null))
-                                        .send();
-            System.out.println(result);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-
-
-		return DEFAULT_PATH;
+		return jsLangPack;
 	}
 
 }

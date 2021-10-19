@@ -27,4 +27,12 @@ public class CustomUtil {
         return clientIP == null ? req.getRemoteAddr() : clientIP;
     }
 
+    public String randomString(int len) {
+        String result   = "";
+
+        
+
+        return result;
+    }
+
 }

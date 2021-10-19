@@ -1,3 +1,4 @@
+import Ajax from "../../Common/Ajax.js";
 import { modal } from "../../Common/Util.js";
 
 export default class NopeLogin extends HTMLElement {
@@ -41,7 +42,14 @@ export default class NopeLogin extends HTMLElement {
         console.log(this)
 
         this.querySelector('#btnLogin').addEventListener('click', () => {
-            console.log('test')
+            let ajax    = new Ajax();
+            ajax.request({
+                url     : '/lang-pack',
+                type    : 'get',
+                success : (res) => {
+                    console.log(res)
+                }
+            })
         })
 
     }
