@@ -7,6 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import prv.boot.nope.Common.Util.CustomUtil;
 import prv.boot.nope.Common.Util.Token.JWTToken;
+import prv.boot.nope.Common.Util.Token.TokenOption;
 
 public class ApiTokenCheckInterceptor implements HandlerInterceptor {
 
@@ -22,6 +23,7 @@ public class ApiTokenCheckInterceptor implements HandlerInterceptor {
 		boolean _verify	= token.verifyToken();
 
 		System.out.println(customUtil.getClientIP(req));
+		System.out.println(req.getHeader(TokenOption.NICKNAME.getStringValue()));
 		// http://127.0.0.1:8887/public/api/user/test
 
 		if(!_verify) res.sendRedirect(req.getContextPath() + "/");

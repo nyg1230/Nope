@@ -3,8 +3,34 @@
 
 <mapper namespace="prv.boot.nope.Domain.User.model.mapper.UserMapper">
 
+    <resultMap type="prv.boot.nope.Domain.User.model.vo.User" id="user">
+        <id column="seq" property="seq"/>
+        <result property="account" column="account"/>
+        <result property="pw" column="pw"/>
+        <result property="salt" column="salt"/>
+        <result property="email" column="email"/>
+        <result property="enrollDate" column="enroll_date"/>
+        <result property="dropDate" column="drop_date"/>
+        <result property="lastLoginIp" column="last_login_ip"/>
+    </resultMap>
+
     <select id="selectUserTotalCount" resultType="_int">
-        select 1
+        SELECT COUNT(1) FROM USERS
+    </select>
+
+    <select id="selectLoginUser" parameterType="string" resultMap="user">
+        SELECT
+            SEQ,
+            ACCOUNT,
+            PW,
+            SALT,
+            EMAIL,
+            ENROLL_DATE,
+            DROP_DATE
+        FROM
+            USERS
+        WHERE
+            ACCOUNT = #{loginUserAccount}
     </select>
 
 </mapper>

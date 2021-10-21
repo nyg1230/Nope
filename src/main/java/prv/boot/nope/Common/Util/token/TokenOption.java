@@ -6,8 +6,8 @@ public enum TokenOption {
     ALG_NAME("HS256"),
     ALG(SignatureAlgorithm.HS256),
     EXPIRE_TIME(1000 * 60L * 30L),
-    ENCODING("UTF-8")
-
+    ENCODING("UTF-8"),
+	NICKNAME("X-TOKEN"),
     ;
 
     final Object value;

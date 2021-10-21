@@ -1,3 +1,5 @@
+import { jwt } from "./Util.js";
+
 export default class Ajax {
 
     httpRequest;
@@ -52,6 +54,8 @@ export default class Ajax {
 
     #setHeader(headers) {
         if(headers == null || typeof headers === 'object') return;
+
+		this.httpRequest.setRequestHeader(jwt.name, jwt.get());
 
         Object.keys(headers).forEach(header => {
             let value   = headers[header];

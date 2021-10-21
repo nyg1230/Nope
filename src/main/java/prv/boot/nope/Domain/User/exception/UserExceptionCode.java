@@ -4,6 +4,9 @@ import prv.boot.nope.Common.Exception.CustomExceptionCode;
 
 public enum UserExceptionCode implements CustomExceptionCode {
     TEST("U0001", "테스트"),
+
+	NOT_EXIST_ACCOUNT("EU00001", "해당 사용자가 존재하지 않습니다."),
+	NOT_MATCH_PASSWORD("EU00002", "비밀번호가 일치하지 않습니다."),
     ;
 
     private final String code;

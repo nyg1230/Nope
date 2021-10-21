@@ -10,16 +10,14 @@ export default class MainFrame extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML  = `
-            <style>
-                @import url('/css/Frame/MainFrame.css');
-            </style>
-
-            <nope-header class='mcommon header'></nope-header>
-            <nope-nav class='mcommon nav mcenter'></nope-nav>
-            <nope-main class='mcommon main mcenter'></nope-main>
-            <aside class='mcommon aside mcenter'></aside>
-            <nope-footer class='mcommon footer'></nope-footer>
+            <nope-header></nope-header>
+            <nope-nav class='main-middle'></nope-nav>
+            <nope-main class='main-middle' ></nope-main>
+            <nope-aside class='main-middle' ></nope-aside>
+            <nope-footer></nope-footer>
         `
+		this.classList.add('grid')
+		this.classList.add('main-grid')
     }
 }
 

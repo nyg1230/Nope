@@ -7,3 +7,12 @@
     left:0px;
     top:0px;
 }
+
+.modal-window {
+	background-color	: #9b6060;
+	position: absolute;
+	padding	: 10px;
+	left: 50%;
+	top: 30%;
+	transform: translate(-50%);
+}

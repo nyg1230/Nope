@@ -1,57 +1,71 @@
 import Ajax from "../../Common/Ajax.js";
 import { modal } from "../../Common/Util.js";
+import NopeSignup from "./signup.js";
 
 export default class NopeLogin extends HTMLElement {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 
-    connectedCallback() {
+	connectedCallback() {
+		
+		this.innerHTML	= `
+			<div class='login-header'>${window.lang.sign.signin.login}</div>
 
-        this.innerHTML  = `
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan=2>로긴</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>아디</th>
-                        <th>
-                            <input type='text' id=''>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>비번</th>
-                        <th>
-                            <input type='password' id=''>
-                        </th>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan=2>
-                            <button id='btnLogin'>록인</button>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-        `
+			<div class='login-id'>${window.lang.sign.id}</div>
+			<div class='login-id-txt'><input type='text' id='txtAccount'></div>
 
-        console.log(this)
+			<div class='login-pw'>${window.lang.sign.pw}</div>
+			<div class='login-pw-txt'><input type='password' id='txtPw'></div>
 
-        this.querySelector('#btnLogin').addEventListener('click', () => {
-            let ajax    = new Ajax();
-            ajax.request({
-                url     : '/lang-pack',
-                type    : 'get',
-                success : (res) => {
-                    console.log(res)
-                }
-            })
-        })
+			<div class='login-footer'>
+				<button id='btnLogin'>${window.lang.sign.signin.login}</button>
+				<button id='btnSignup'>${window.lang.sign.signup.signup}</button>
+			</div>
+		`
 
-    }
+		this.classList.add('grid');
+		this.classList.add('login-grid');
+
+		this.addLisener();
+	}
+
+
+
+	addLisener() {
+		this.querySelector('#btnLogin').addEventListener('click', () => {
+			let $account	= this.querySelector('input#txtAccount');
+			let $pw     	= this.querySelector('input#txtPw');
+			this.#doLogin($account.value.trim(), $pw.value.trim());
+		});
+
+		this.querySelector('#btnSignup').addEventListener('click', () => {
+			this.#goSignup();
+		})
+	}
+
+	#doLogin(id, pw) {
+		let ajax    = new Ajax();
+		ajax.request({
+			url     : '/login',
+			type    : 'get',
+			data    : {
+				account : id,
+				pw      : pw
+			},
+			success : (res) => {
+				console.log(res)
+			}
+		})
+	}
+
+	#goSignup() {
+		let $parent	= this.parentNode;
+		this.remove();
+
+		let $signup	= document.createElement('nope-signup')
+		$signup.classList.add('modal-window');
+		$parent.appendChild($signup);
+	}
 }
 customElements.define('nope-login', NopeLogin);

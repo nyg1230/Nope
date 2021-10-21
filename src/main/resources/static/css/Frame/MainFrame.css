@@ -1,40 +1,39 @@
-#app {
-    width   : 99vw;
-    padding : 0px;
+.main-grid {
+	width	: 99vw;
+	grid-template-areas: 
+		'header header header'
+		'navi content aside'
+		'footer footer footer';
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-gap	: 5px;
 }
 
-.mcommon {
-    border  : solid 1px #000000;
-    margin  : 0px;
+.main-grid>* {
+	border : solid 1px #000;
 }
 
-.header {
-    display : inline-block;
-    height  : 10vh;
-    width   : 99.5%;
+nope-header {
+	height		: 10vh;
+	grid-area	: header;
 }
 
-.mcenter {
-    float   : left;
-    height  : 75vh;
-    margin  : 5px 5px 5px 0px;
+nope-nav {
+	grid-area	: navi;
 }
 
-.nav {
-    width   : 20vw;
+nope-main {
+	grid-area	: content;
 }
 
-.main {
-    width   : 65vw;
+nope-aside {
+	grid-area	: aside;
 }
 
-.aside {
-    
+nope-footer {
+	height		: 10vh;
+	grid-area	: footer;
 }
 
-.footer {
-    display : inline-block;
-    width   : 99.5%;
-    height  : 10vh;
-    
+.main-middle {
+	height		: 75vh;
 }
