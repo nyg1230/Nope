@@ -21,17 +21,18 @@ export default class Route{
 
 	static routes	= [
 		{
-			path	: '/stock',
-			tagName	: 'stock-frame'
-		},
-		{
+			name	: 'board',
 			path	: '/board',
 			tagName	: 'board-frame'
 		}
 	]
 
-	static getRoutes(path) {
+	static getRoutesByPath(path) {
 		return Route.routes.filter(r => r['path'] === path)[0];
+	}
+
+	static getRoutesByName(name) {
+		return Route.routes.filter(r => r['name'] === name)[0];
 	}
 
 }

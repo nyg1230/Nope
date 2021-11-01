@@ -45,11 +45,12 @@ const jwt   = {
 }
 
 const setHistory	= (path, qs, data) => {
-	let tmp	= qs.reduce((acc, p) => `${p[key]}=${value}&`, '?');
-	history.pushState(`${path}${tmp}`, null, data);
+	let tmp	= !!qs ? qs.reduce((acc, p) => `${p[key]}=${value}&`, '?') : '';
+	window.history.pushState(data, null, `${path}${tmp}`);
 }
 
 export {
     modal,
-    jwt
+    jwt,
+	setHistory
 }

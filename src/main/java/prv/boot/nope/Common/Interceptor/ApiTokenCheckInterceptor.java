@@ -21,13 +21,20 @@ public class ApiTokenCheckInterceptor implements HandlerInterceptor {
 
 		JWTToken token	= new JWTToken(strToekn);
 		boolean _verify	= token.verifyToken();
+		boolean result	= false;
 
 		System.out.println(customUtil.getClientIP(req));
 		System.out.println(req.getHeader(TokenOption.NICKNAME.getStringValue()));
+
 		// http://127.0.0.1:8887/public/api/user/test
 
-		if(!_verify) res.sendRedirect(req.getContextPath() + "/");
+		if(req.getMethod().equals("GET")) result = true;
+		else if(!_verify) result = true;
+		else if(!_verify) {
+			result = false;
+			res.sendRedirect(req.getContextPath() + "/");
+		}
 
-		return !_verify;
+		return result;
 	}
 }

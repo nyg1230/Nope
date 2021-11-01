@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="prv.boot.nope.Domain.Board.model.mapper.BoardMapper">
+
+	<resultMap type="prv.boot.nope.Domain.Board.model.vo.Board" id="board">
+		<id column="id" property="id"/>
+        <result property="title" column="title"/>
+        <result property="writer" column="writer"/>
+        <result property="writeDate" column="write_date"/>
+        <result property="modifyDate" column="modify_date"/>
+	</resultMap>
+
+	<select id='selectBoardList' parameterType='string' resultMap='board'>
+		SELECT
+			ID,
+			TITLE,
+			WRITER,
+			WRITE_DATE,
+			MODIFY_DATE,
+			BOARD_TYPE
+		FROM
+			BOARD
+		WHERE
+			BOARD_TYPE = #{type}
+	</select>
+
+</mapper>

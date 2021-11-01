@@ -12,8 +12,8 @@ export default class MainFrame extends HTMLElement {
         this.innerHTML  = `
             <nope-header></nope-header>
             <nope-nav class='main-middle'></nope-nav>
-            <nope-main class='main-middle' ></nope-main>
-            <nope-aside class='main-middle' ></nope-aside>
+            <nope-main class='main-middle'></nope-main>
+            <nope-aside class='main-middle'></nope-aside>
             <nope-footer></nope-footer>
         `
 		this.classList.add('grid')

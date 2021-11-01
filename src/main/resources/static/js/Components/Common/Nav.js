@@ -1,3 +1,4 @@
+import { setHistory } from "../../Common/Util.js";
 import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 import Route from "../../Core/Route.js";
 
@@ -11,8 +12,13 @@ export default class NopeNav extends HTMLElementCustom {
     }
 
 	setEvent() {
-		this.addEvent('click', '.cate-1', e => {
-			console.log(e.target)
+		this.addEvent('click', 'a.category', e => {
+			e.preventDefault();
+			let $main	= document.querySelector('nope-main');
+			let route	= Route.getRoutesByPath(e.target.pathname);
+
+			$main.setAttribute('r', route.name);
+			setHistory(route.path)
 		})
 	}
 
@@ -20,7 +26,7 @@ export default class NopeNav extends HTMLElementCustom {
 		return this.#getMunu().map(m => `
 			<div class='cate-0'>
 				<span>${m['name']}</span>
-				${m['list'].map(l => `<div class='cate-1'><span href='${m.path}'>${l['name']}</span></div>`).join('')}
+				${m['list'].map(l => `<div class=''><a class='category' href='${m.path}'>${l['name']}</a></div>`).join('')}
 			</div>
 		`).join('');
 	}
@@ -34,10 +40,6 @@ export default class NopeNav extends HTMLElementCustom {
 					{
 						name	: '사진',
 						type	: 'p'
-					},
-					{
-						name	: '테수투',
-						type	: 'a'
 					}
 				]
 			}

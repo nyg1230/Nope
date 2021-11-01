@@ -8,7 +8,7 @@ import prv.boot.nope.Common.Util.CustomUtil;
 
 public class User {
     
-    private int seq;
+    private int id;
     private String account;
     private String pw;
     private String salt;
@@ -17,12 +17,12 @@ public class User {
     private Timestamp dropDate;
     private String lastLoginIp;
 
-    public int getSeq() {
-        return this.seq;
+    public int getId() {
+        return this.id;
     }
 
-    public void setSeq(int seq) {
-        this.seq = seq;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAccount() {
@@ -84,7 +84,7 @@ public class User {
     @Override
     public String toString() {
         return "["
-                + "seq : " + this.seq
+                + "id : " + this.id
                 + ", account : " + this.account
                 + ", pw : " + this.pw
                 + ", salt : " + this.salt

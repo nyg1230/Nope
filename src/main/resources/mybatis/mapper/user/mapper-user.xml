@@ -4,7 +4,7 @@
 <mapper namespace="prv.boot.nope.Domain.User.model.mapper.UserMapper">
 
     <resultMap type="prv.boot.nope.Domain.User.model.vo.User" id="user">
-        <id column="seq" property="seq"/>
+        <id column="id" property="id"/>
         <result property="account" column="account"/>
         <result property="pw" column="pw"/>
         <result property="salt" column="salt"/>
@@ -20,13 +20,13 @@
 
     <select id="selectLoginUser" parameterType="string" resultMap="user">
         SELECT
-            SEQ,
+            ID,
             ACCOUNT,
             PW,
             SALT,
             EMAIL,
             ENROLL_DATE,
-            DROP_DATE
+            DELETE_DATE
         FROM
             USERS
         WHERE
