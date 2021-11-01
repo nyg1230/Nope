@@ -1,4 +1,5 @@
 import { jwt, modal } from "../../Common/Util.js";
+import NopeTimer from "../Common/Timer.js";
 import NopeLogin from "./Login.js";
 
 export default class UserState extends HTMLElement {
@@ -7,18 +8,27 @@ export default class UserState extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log(jwt.get())
-
-        !!jwt.test() ? 'a' : this.templ();
-
-        !!jwt.test() ? {} : {};
+        this.innerHTML	= !!jwt.test() ? this.userinfoTmpl() : this.loginTmpl();
     }
 
-    templ() {
-        this.innerHTML  = `<button>test</button>`
-        this.addEventListener('click', () => {
+    loginTmpl() {
+		this.addEventListener('click', () => {
             modal(document.body, 'nope-login')
         })
+
+		return `
+			<button>test</button>
+		`
     }
+
+	userinfoTmpl() {
+		
+		let user	= window.app.currentUser;
+		
+		return `
+			${user.account} 님 환영합니다.
+			<nope-time></nope-time>
+		`
+	}
 }
 customElements.define('user-state', UserState);

@@ -1,5 +1,5 @@
 import Ajax from "../../Common/Ajax.js";
-import { modal } from "../../Common/Util.js";
+import { jwt, modal } from "../../Common/Util.js";
 import NopeSignup from "./signup.js";
 
 export default class NopeLogin extends HTMLElement {
@@ -12,11 +12,11 @@ export default class NopeLogin extends HTMLElement {
 		this.innerHTML	= `
 			<div class='login-header'>${window.lang.sign.signin.login}</div>
 
-			<div class='login-id'>${window.lang.sign.id}</div>
-			<div class='login-id-txt'><input type='text' id='txtAccount'></div>
+			<div class='login-body-1'>${window.lang.sign.id}</div>
+			<div class='login-body-2'><input type='text' id='txtAccount'></div>
 
-			<div class='login-pw'>${window.lang.sign.pw}</div>
-			<div class='login-pw-txt'><input type='password' id='txtPw'></div>
+			<div class='login-body-1'>${window.lang.sign.pw}</div>
+			<div class='login-body-2'><input type='password' id='txtPw'></div>
 
 			<div class='login-footer'>
 				<button id='btnLogin'>${window.lang.sign.signin.login}</button>
@@ -54,7 +54,19 @@ export default class NopeLogin extends HTMLElement {
 				pw      : pw
 			},
 			success : (res) => {
-				console.log(res)
+
+				let result	= JSON.parse(res)['X-TOKEN'] ?? JSON.parse(res)['errorCode']
+				jwt.token	= result;
+				if(jwt.test()) {
+					alert('success');
+					location.reload();
+				} else {
+					alert('nope')
+				}
+			},
+			error	: (status, msg) => {
+				console.log(status);
+				console.log(msg);
 			}
 		})
 	}
@@ -65,6 +77,7 @@ export default class NopeLogin extends HTMLElement {
 
 		let $signup	= document.createElement('nope-signup')
 		$signup.classList.add('modal-window');
+		$signup.classList.add('signup-grid');
 		$parent.appendChild($signup);
 	}
 }

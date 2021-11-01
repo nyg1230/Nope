@@ -20,12 +20,33 @@ const modal = ($target, frame) => {
 
 const jwt   = {
     name    : `X-TOKEN`,
-    get     : function() {
-        return sessionStorage.getItem(this.name);
-    },
+	get token() {
+		return sessionStorage.getItem(this.name);
+	},
+	set token(tokenStr) {
+		sessionStorage.setItem(this.name, tokenStr);
+	},
+	get payload() {
+		if(!this.token) return null;
+		let base64Url	= this.token.split('.')[1];
+		if(!base64Url) return null;
+		let base64		= base64Url.replace(/-/g, '+')
+									.replace(/_/g, '/');
+		let jsonPayload	= decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+
+		return JSON.parse(jsonPayload)
+	},
+	get expireDate() {
+		return new Date(this.payload['exp'] *1000);
+	},
     test    : function() {
-        if(!this.get()) return false;
+		return !this.payload ? false : this.expireDate > new Date();
     }
+}
+
+const setHistory	= (path, qs, data) => {
+	let tmp	= qs.reduce((acc, p) => `${p[key]}=${value}&`, '?');
+	history.pushState(`${path}${tmp}`, null, data);
 }
 
 export {

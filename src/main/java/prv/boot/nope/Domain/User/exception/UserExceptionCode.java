@@ -7,6 +7,7 @@ public enum UserExceptionCode implements CustomExceptionCode {
 
 	NOT_EXIST_ACCOUNT("EU00001", "해당 사용자가 존재하지 않습니다."),
 	NOT_MATCH_PASSWORD("EU00002", "비밀번호가 일치하지 않습니다."),
+	EXPIRE_TOKEN("EU90001", "만료된 사용자 토큰입니다."),
     ;
 
     private final String code;

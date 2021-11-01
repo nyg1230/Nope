@@ -1,5 +1,6 @@
 .main-grid {
 	width	: 99vw;
+	display	: grid;
 	grid-template-areas: 
 		'header header header'
 		'navi content aside'

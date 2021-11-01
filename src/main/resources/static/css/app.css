@@ -3,6 +3,11 @@
 @import url('/css/Common/customGrid.css');
 /* common end */
 
+/* component start */
+@import url('/css/components/sign.css');
+/* component end */
+
 /* frame start */
 @import url('/css/Frame/MainFrame.css');
+@import url('/css/Frame/BoardFrame.css');
 /* frame end */

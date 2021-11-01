@@ -22,9 +22,10 @@ export default class Ajax {
         p.data  = this.#mkQuerySting(p.data);
         p.url   = p.type === 'GET' ? `${p.url}${p.data}` : p.url
 
-        this.#setHeader(p.headers);
+        
 
         this.httpRequest.open(p.type, p.url, p.async === undefined ? true : p.async);
+		this.#setHeader(p.headers);
         this.httpRequest.send(p.type === 'GET' ? null : p.data);
 
     }
@@ -53,9 +54,9 @@ export default class Ajax {
     }
 
     #setHeader(headers) {
-        if(headers == null || typeof headers === 'object') return;
+		this.httpRequest.setRequestHeader(jwt.name, jwt.token);
 
-		this.httpRequest.setRequestHeader(jwt.name, jwt.get());
+        if(headers == null || typeof headers === 'object') return;
 
         Object.keys(headers).forEach(header => {
             let value   = headers[header];

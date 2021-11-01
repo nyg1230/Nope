@@ -1,10 +1,14 @@
 package prv.boot.nope.Domain.User.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,5 +51,21 @@ public class UserControllerNone {
     }
 
 	
+	@PostMapping("/token-reissuance")
+	public Map<String, Object> tokenReissuance(HttpServletRequest req) {
+		JWTToken jwt	= new JWTToken(req.getHeader("X-TOKEN"));
+		Map<String, Object> result	= new HashMap<>();
+		
+		System.out.println();
+		if(jwt.verifyToken()) {
+			jwt.reissuance();
+			result.put(TokenOption.NICKNAME.getStringValue(), jwt.getToken());
+		} else {
+			throw new CustomException(UserExceptionCode.EXPIRE_TOKEN);
+		}
+
+		return result;
+	}
+
 
 }
