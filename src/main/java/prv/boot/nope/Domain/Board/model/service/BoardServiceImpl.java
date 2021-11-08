@@ -15,8 +15,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 
 	@Override
-	public List<Board> selectBoardList(String type) {
-		return boardMapper.selectBoardList(type);
+	public List<Board> selectBoardList(int page, String type) {
+		return boardMapper.selectBoardList(page, type);
 	}
 	
 }

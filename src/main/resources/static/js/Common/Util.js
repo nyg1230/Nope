@@ -44,6 +44,16 @@ const jwt   = {
     }
 }
 
+const qs2obj	= () => {
+	return location.search.replace(/^\?/, '').split('&').reduce((acc, k) => {
+		let tmp	= k.split('=');
+		acc[tmp[0]]	= tmp[1];
+		return acc;
+	}, {});
+}
+
+const getQsKey	= (key) => qs2obj()[key];
+
 const setHistory	= (path, qs, data) => {
 	let tmp	= !!qs ? qs.reduce((acc, p) => `${p[key]}=${value}&`, '?') : '';
 	window.history.pushState(data, null, `${path}${tmp}`);
@@ -52,5 +62,7 @@ const setHistory	= (path, qs, data) => {
 export {
     modal,
     jwt,
-	setHistory
+	setHistory,
+	qs2obj,
+	getQsKey
 }

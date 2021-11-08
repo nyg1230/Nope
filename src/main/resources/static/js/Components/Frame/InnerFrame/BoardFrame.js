@@ -50,7 +50,11 @@ export default class BoardFrame extends HTMLElementCustom {
 					<div class='board-body-2'>${'aaa'}</div>
 					<div class='board-body-3'>${b?.writeDate}</div>
 					`).join('')
-					: ``}
+					: 
+					`
+					
+					`
+				}
 			</board-body>
 			<board-footer>
 				<div>empty</div>
@@ -68,7 +72,7 @@ export default class BoardFrame extends HTMLElementCustom {
 				url		: '/public/api/boards/list',
 				type	: 'get',
 				data	: {
-					page	: 10
+					page	: 1
 				},
 				success	: result => {
 					let list	= JSON.parse(result);

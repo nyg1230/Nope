@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Board {
 	
 	private int id;
+	private int seq;
 	private String title;
 	private String pw;
 	private int writer;
@@ -15,8 +16,9 @@ public class Board {
 	private String isDelete;
 
 	Board() {}
-	Board(int id, String title, int writer, Timestamp writeDate, Timestamp modifyDate) {
+	Board(int id, int seq, String title, int writer, Timestamp writeDate, Timestamp modifyDate) {
 		this.id		= id;
+		this.seq	= seq;
 		this.title	= title;
 		this.writer	= writer;
 		this.writeDate	= writeDate;
@@ -29,6 +31,14 @@ public class Board {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getSeq() {
+		return this.seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
 	public String getTitle() {
@@ -55,11 +65,11 @@ public class Board {
 		this.writer = writer;
 	}
 
-	public Timestamp getWrtieDate() {
+	public Timestamp getWriteDate() {
 		return this.writeDate;
 	}
 
-	public void setWrtieDate(Timestamp writeDate) {
+	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
 

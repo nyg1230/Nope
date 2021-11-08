@@ -23,7 +23,17 @@ export default class Route{
 		{
 			name	: 'board',
 			path	: '/board',
-			tagName	: 'board-frame'
+			tagName	: 'board-list'
+		},
+		{
+			name	: 'board-write',
+			path	: '/board/write',
+			tagName	: 'board-write'
+		},
+		{
+			name	: 'board-content',
+			path	: '/board/content',
+			tagName	: 'board-content'
 		}
 	]
 

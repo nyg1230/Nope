@@ -5,24 +5,44 @@
 
 	<resultMap type="prv.boot.nope.Domain.Board.model.vo.Board" id="board">
 		<id column="id" property="id"/>
+		<result property="seq" column="row_num"/>
         <result property="title" column="title"/>
         <result property="writer" column="writer"/>
         <result property="writeDate" column="write_date"/>
         <result property="modifyDate" column="modify_date"/>
 	</resultMap>
 
-	<select id='selectBoardList' parameterType='string' resultMap='board'>
+	
+	<select id='selectBoardList' parameterType='map' resultMap='board'>
 		SELECT
-			ID,
-			TITLE,
-			WRITER,
-			WRITE_DATE,
-			MODIFY_DATE,
-			BOARD_TYPE
+			TMP.ID,
+			TMP.ROW_NUM,
+			TMP.TITLE,
+			TMP.WRITER,
+			TMP.WRITE_DATE,
+			TMP.MODIFY_DATE,
+			TMP.BOARD_TYPE
 		FROM
-			BOARD
+			(
+				SELECT
+					ROW_NUMBER() OVER(ORDER BY WRITE_DATE ASC) AS ROW_NUM,
+					ID,
+					TITLE,
+					WRITER,
+					WRITE_DATE,
+					MODIFY_DATE,
+					BOARD_TYPE
+				FROM
+					BOARD
+				WHERE
+					IS_DELETE	= 'N' AND
+					DELETE_DATE IS NULL
+			) TMP
 		WHERE
-			BOARD_TYPE = #{type}
+			BOARD_TYPE = #{type} AND
+			TMP.ROW_NUM <![CDATA[>]]> (#{page} - 1) * 10 AND
+			TMP.ROW_NUM <![CDATA[<=]]> (#{page} * 10)
+			
 	</select>
 
 </mapper>

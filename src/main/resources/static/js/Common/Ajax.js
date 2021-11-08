@@ -14,7 +14,7 @@ export default class Ajax {
 
     request(p) {
 
-        this.#requestHandling(p.success, p.error, p.beforesend, p.complate);
+        this.#requestHandling(p.success, p.error, p.beforesend, p.complate, p.datatype ?? '');
 
         p.type  = p.type == null || this.allowType.includes(p.type.toUpperCase()) === false ? 'GET' : p.type;
         p.type  = p.type.toUpperCase();
@@ -30,7 +30,7 @@ export default class Ajax {
 
     }
 
-    #requestHandling(success, error, beforesend, complate) {
+    #requestHandling(success, error, beforesend, complate, datatype) {
         this.httpRequest.addEventListener('readystatechange', () => {
 
             typeof beforesend === 'function' ? beforesend() : '';
@@ -38,10 +38,11 @@ export default class Ajax {
             try {
                 if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
                     if (this.httpRequest.status === 200) {
-                        typeof success === 'function' ? success(this.httpRequest.responseText) : '';
+						let res	= this.httpRequest.responseText;
+						if(datatype.toUpperCase() === 'JSON') res	= JSON.parse(res);
+                        typeof success === 'function' ? success(res) : '';
                     } else {
-                        console.log(this.httpRequest);
-                        typeof error === 'function' ? error() : '';
+                        typeof error === 'function' ? error(this.httpRequest.status, this.httpRequest.statusText) : '';
                     }
                 }
             } catch( e ) {

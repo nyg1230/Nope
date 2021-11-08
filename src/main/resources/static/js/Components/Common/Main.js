@@ -27,5 +27,6 @@ export default class NopeMain extends HTMLElement {
 		let $innerFrame	= document.createElement(!!route ? route.tagName : 'div');
 		this.appendChild($innerFrame);
 	}
+
 }
 customElements.define('nope-main', NopeMain);

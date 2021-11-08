@@ -17,8 +17,9 @@ export default class NopeNav extends HTMLElementCustom {
 			let $main	= document.querySelector('nope-main');
 			let route	= Route.getRoutesByPath(e.target.pathname);
 
+			setHistory(`${route.path}${e.target.search}`)
 			$main.setAttribute('r', route.name);
-			setHistory(route.path)
+			
 		})
 	}
 
@@ -26,7 +27,7 @@ export default class NopeNav extends HTMLElementCustom {
 		return this.#getMunu().map(m => `
 			<div class='cate-0'>
 				<span>${m['name']}</span>
-				${m['list'].map(l => `<div class=''><a class='category' href='${m.path}'>${l['name']}</a></div>`).join('')}
+				${m['list'].map(l => `<div class=''><a class='category' href='${m.path}?type=${l.type}'>${l['name']}</a></div>`).join('')}
 			</div>
 		`).join('');
 	}
@@ -39,7 +40,7 @@ export default class NopeNav extends HTMLElementCustom {
 				list	: [
 					{
 						name	: '사진',
-						type	: 'p'
+						type	: 'AA'
 					}
 				]
 			}

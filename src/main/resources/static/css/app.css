@@ -5,9 +5,9 @@
 
 /* component start */
 @import url('/css/components/sign.css');
+@import url('/css/board/boardList.css');
 /* component end */
 
 /* frame start */
 @import url('/css/Frame/MainFrame.css');
-@import url('/css/Frame/BoardFrame.css');
 /* frame end */

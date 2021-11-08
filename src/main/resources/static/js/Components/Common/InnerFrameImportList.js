@@ -1,7 +1,2 @@
-import BoardFrame from "../Frame/InnerFrame/BoardFrame.js";
-import StockFrame from "../Frame/InnerFrame/StockFrame.js";
-
-export {
-    StockFrame,
-	BoardFrame
-}
+export {default as BoardList} from "../Board/BoardList.js";
+export {default as BoardFrame} from "../Frame/InnerFrame/BoardFrame.js";
