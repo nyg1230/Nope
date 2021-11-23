@@ -1,14 +1,9 @@
-export default class NopeFooter extends HTMLElement {
-    constructor() {
-        super();
+import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 
-        this.innerHTML  = `
-            푸터
-        `
-    }
-
-    connectedCallback() {
-        
-    }
+export default class NopeFooter extends HTMLElementCustom {
+    template() {
+		return '푸터'
+	}
 }
+
 customElements.define('nope-footer', NopeFooter);

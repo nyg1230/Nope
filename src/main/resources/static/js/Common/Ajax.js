@@ -6,68 +6,66 @@ export default class Ajax {
     allowType;
 
     constructor() {
-        if(window.XMLHttpRequest) this.httpRequest = new XMLHttpRequest();
-        else return null;
+		if(!fetch) return;
+	}
 
-        this.allowType   = ['GET', 'POST', 'PUT', 'DELETE'];
-    }
+	get		= async (host, path, body, headers = {}) => {
+		headers	= {
+			...headers,
+			...this.#defaultHeader()
+		}
 
-    request(p) {
+		return this.#request(host, path, body, headers, 'GET');
+	}
 
-        this.#requestHandling(p.success, p.error, p.beforesend, p.complate, p.datatype ?? '');
+	post	= async (host, path, body, headers = {}) => {
+		headers	= {
+			...headers,
+			...this.#defaultHeader()
+		}
+		return this.#request(host, path, null, headers, 'POST')
+	}
 
-        p.type  = p.type == null || this.allowType.includes(p.type.toUpperCase()) === false ? 'GET' : p.type;
-        p.type  = p.type.toUpperCase();
+	put		= async (host, path, body, headers = {}) => {
+		headers	= {
+			...headers,
+			...this.#defaultHeader()
+		}
+		return this.#request(host, path, body, headers, 'PUT')
+	}
 
-        p.data  = this.#mkQuerySting(p.data);
-        p.url   = p.type === 'GET' ? `${p.url}${p.data}` : p.url
+	delete	= async (host, path, body, headers = {}) => {
+		headers	= {
+			...headers,
+			...this.#defaultHeader()
+		}
+		return this.#request(host, path, body, headers, 'DELETE')
+	}
 
-        
+	#defaultHeader() {
+		const headers	= {
+			"Content-Type"	: "application/json"
+		};
+		headers[jwt.name]	= jwt.token;
 
-        this.httpRequest.open(p.type, p.url, p.async === undefined ? true : p.async);
-		this.#setHeader(p.headers);
-        this.httpRequest.send(p.type === 'GET' ? null : p.data);
+		return headers;
+	}
 
-    }
+	#request	= async (host, path, body, headers, method) => {
+		let url		= `${host ?? ''}${path}`;
+		const options	= {
+			method	: method,
+			headers	: {
+				...headers
+			},
+		}
 
-    #requestHandling(success, error, beforesend, complate, datatype) {
-        this.httpRequest.addEventListener('readystatechange', () => {
+		if(method === 'GET') url	+= body ? `?${Object.keys(body).map(k => `${k}=${body[k]}`).join('&')}` : ''
+		else options['body'] = JSON.stringify(body);
 
-            typeof beforesend === 'function' ? beforesend() : '';
+		const res	= await fetch(url, options);
+		const data	= await res.json();
 
-            try {
-                if (this.httpRequest.readyState === XMLHttpRequest.DONE) {
-                    if (this.httpRequest.status === 200) {
-						let res	= this.httpRequest.responseText;
-						if(datatype.toUpperCase() === 'JSON') res	= JSON.parse(res);
-                        typeof success === 'function' ? success(res) : '';
-                    } else {
-                        typeof error === 'function' ? error(this.httpRequest.status, this.httpRequest.statusText) : '';
-                    }
-                }
-            } catch( e ) {
-                console.error(e);
-            }
-
-            typeof complate === 'function' ? complate() : '';
-
-        });
-    }
-
-    #setHeader(headers) {
-		this.httpRequest.setRequestHeader(jwt.name, jwt.token);
-
-        if(headers == null || typeof headers === 'object') return;
-
-        Object.keys(headers).forEach(header => {
-            let value   = headers[header];
-            this.httpRequest.setRequestHeader(header, value);
-        })
-    }
-
-    #mkQuerySting(data) {
-        return data == null || typeof data !== 'object' ? '' : Object.keys(data).reduce((acc, k) => `${acc}${k}=${encodeURIComponent(data[k])}&`, '?');
-    }
-
-    
+		return res.ok ? data : Error(data);
+	}
 }

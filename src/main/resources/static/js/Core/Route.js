@@ -45,4 +45,8 @@ export default class Route{
 		return Route.routes.filter(r => r['name'] === name)[0];
 	}
 
+	static getCurrentTarget() {
+		return this.tt;
+	}
+
 }

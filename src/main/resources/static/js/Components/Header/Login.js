@@ -45,17 +45,14 @@ export default class NopeLogin extends HTMLElement {
 	}
 
 	#doLogin(id, pw) {
-		let ajax    = new Ajax();
-		ajax.request({
-			url     : '/login',
-			type    : 'get',
-			data    : {
-				account : id,
-				pw      : pw
-			},
-			success : (res) => {
-
-				let result	= JSON.parse(res)['X-TOKEN'] ?? JSON.parse(res)['errorCode']
+		
+		new Ajax().get(null, '/login', {
+			account : id,
+			pw      : pw
+		})
+		.then(res => {
+			console.log(res)
+			let result	= res['X-TOKEN'] ?? res['errorCode']
 				jwt.token	= result;
 				if(jwt.test()) {
 					alert('success');
@@ -63,11 +60,10 @@ export default class NopeLogin extends HTMLElement {
 				} else {
 					alert('nope')
 				}
-			},
-			error	: (status, msg) => {
-				console.log(status);
-				console.log(msg);
-			}
+		})
+		.catch((status, msg) => {
+			console.log(status);
+			console.log(msg);
 		})
 	}
 

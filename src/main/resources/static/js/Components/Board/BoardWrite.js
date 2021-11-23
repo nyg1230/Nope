@@ -1,21 +1,15 @@
 import { jwt } from "../../Common/Util.js";
+import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 
 export default class BoardWrite extends HTMLElementCustom {
-	constructor() {
-		super();
+	
+	setup() {
+		console.log(jwt)
 	}
 
-	connectedCallback() {
-		console.log(jwt.test())
-		this.innerHTML	= this.#template();
+	template() {
+		return '';
 	}
-
-	#template() {
-		return `
-
-		`
-	}
-
 }
 
 customElements.define('board-write', BoardWrite);

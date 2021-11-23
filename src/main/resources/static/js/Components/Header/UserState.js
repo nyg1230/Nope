@@ -1,15 +1,13 @@
 import { jwt, modal } from "../../Common/Util.js";
+import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 import NopeTimer from "../Common/Timer.js";
 import NopeLogin from "./Login.js";
 
-export default class UserState extends HTMLElement {
-    constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        this.innerHTML	= !!jwt.test() ? this.userinfoTmpl() : this.loginTmpl();
-    }
+export default class UserState extends HTMLElementCustom {
+    
+	template() {
+		return !!jwt.test() ? this.userinfoTmpl() : this.loginTmpl();
+	}
 
     loginTmpl() {
 		this.addEventListener('click', () => {

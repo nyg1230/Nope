@@ -1,5 +1,6 @@
 package prv.boot.nope.Domain;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -38,11 +39,13 @@ public class RootController implements ErrorController {
 
 	@GetMapping("/lang-pack")
 	@ResponseBody
-	public String test(@RequestParam(value = "lang", defaultValue = "kr") String lang) {
+	public Map<String, Object> test(@RequestParam(value = "lang", defaultValue = "kr") String lang) {
 
 		String jsLangPack	= langPackPath + ((langPack.get(lang) != null) ? langPack.get(lang) : defaulLangPack);
+		Map<String, Object> result	= new HashMap<>();
+		result.put("url", jsLangPack);
 
-		return jsLangPack;
+		return result;
 	}
 
 }

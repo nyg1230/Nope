@@ -3,14 +3,7 @@ import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 import Route from "../../Core/Route.js";
 
 export default class NopeNav extends HTMLElementCustom {
-    constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        this.innerHTML  = this.#getTemplate();
-    }
-
+    
 	setEvent() {
 		this.addEvent('click', 'a.category', e => {
 			e.preventDefault();
@@ -23,7 +16,7 @@ export default class NopeNav extends HTMLElementCustom {
 		})
 	}
 
-	#getTemplate() {
+	template() {
 		return this.#getMunu().map(m => `
 			<div class='cate-0'>
 				<span>${m['name']}</span>

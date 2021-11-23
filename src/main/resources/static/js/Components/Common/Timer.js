@@ -6,13 +6,12 @@ export default class NopeTimer extends HTMLElementCustom {
 
 	#timerSeq;
 
-	connectedCallback() {
+	template() {
+		return `남은시간 <span class='timer'>--:--</span> <button id='test'>test</button>`
+	}
 
-		this.innerHTML	= `
-			남은시간 <span class='timer'>--:--</span> <button id='test'>test</button>
-		`
-
-		let $timer	= this.querySelector('.timer');
+	mounted() {
+		let $timer	= this.$root.querySelector('.timer');
 		this.#timer($timer)
 	}
 
@@ -40,25 +39,16 @@ export default class NopeTimer extends HTMLElementCustom {
 	}
 
 	#reissuance() {
-		let ajax	= new Ajax();
-
-		ajax.request({
-			url		: '/token-reissuance',
-			type	: 'post',
-			success	: (res) => {
-				console.log(res)
-				let token	= JSON.parse(res);
-				jwt.token	= token[jwt.name];
-				console.log(jwt.payload)
-			},
-			error	: (status, msg) => {
-
-			}
+		new Ajax().post(null, '/token-reissuance')
+		.then(token => {
+			console.log(token)
+			jwt.token	= token[jwt.name];
+			console.log(jwt.payload)
+		})
+		.catch(msg => {
+			console.log(msg);
 		})
 	}
-
-
-
 }
 
 customElements.define('nope-time', NopeTimer);

@@ -1,3 +1,5 @@
+import Route from "../Core/Route.js";
+
 const modal = ($target, frame) => {
 
     if(!$target || !frame) return;
@@ -54,9 +56,10 @@ const qs2obj	= () => {
 
 const getQsKey	= (key) => qs2obj()[key];
 
-const setHistory	= (path, qs, data) => {
-	let tmp	= !!qs ? qs.reduce((acc, p) => `${p[key]}=${value}&`, '?') : '';
+const setHistory	= (path, params, data) => {
+	let tmp	= !!params ? `?${Object.keys(params).map(p => `${p}=${params[p]}`).join('&')}` : '';
 	window.history.pushState(data, null, `${path}${tmp}`);
+	console.log(Route.getCurrentTarget())
 }
 
 export {
