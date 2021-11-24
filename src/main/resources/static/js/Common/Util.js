@@ -59,7 +59,6 @@ const getQsKey	= (key) => qs2obj()[key];
 const setHistory	= (path, params, data) => {
 	let tmp	= !!params ? `?${Object.keys(params).map(p => `${p}=${params[p]}`).join('&')}` : '';
 	window.history.pushState(data, null, `${path}${tmp}`);
-	console.log(Route.getCurrentTarget())
 }
 
 export {

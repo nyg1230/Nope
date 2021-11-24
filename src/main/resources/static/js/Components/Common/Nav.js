@@ -1,6 +1,7 @@
 import { setHistory } from "../../Common/Util.js";
 import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 import Route from "../../Core/Route.js";
+import NopeMain from "./Main.js";
 
 export default class NopeNav extends HTMLElementCustom {
     
@@ -11,7 +12,7 @@ export default class NopeNav extends HTMLElementCustom {
 			let route	= Route.getRoutesByPath(e.target.pathname);
 
 			setHistory(`${route.path}${e.target.search}`)
-			$main.setAttribute('r', route.name);
+			$main.setAttribute(NopeMain.routeName, route.name);
 			
 		})
 	}

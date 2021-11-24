@@ -5,7 +5,7 @@ export default class Route{
 	$target;
 
 	constructor($target) {
-		this.$target	= $target;
+		this.$target			= $target;
 
 		window.addEventListener('popstate', () => {
 			this.render();
@@ -43,10 +43,6 @@ export default class Route{
 
 	static getRoutesByName(name) {
 		return Route.routes.filter(r => r['name'] === name)[0];
-	}
-
-	static getCurrentTarget() {
-		return this.tt;
 	}
 
 }

@@ -2,6 +2,7 @@ import Ajax from "../../Common/Ajax.js";
 import { getQsKey, jwt, qs2obj, setHistory } from "../../Common/Util.js";
 import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 import Route from "../../Core/Route.js";
+import NopeMain from "../Common/Main.js";
 
 export default class BoardList extends HTMLElementCustom {
 
@@ -45,7 +46,7 @@ export default class BoardList extends HTMLElementCustom {
 				<div class='board-title'>name</div>
 				<div>
 					${jwt.test() ?
-						`<a class='' href='/board/write?type=${this.type ?? ''}'>작성</a>` : ``
+						`<a class='write' href='/board/write?type=${this.type ?? ''}'>작성</a>` : ``
 					}
 				</div>
 			</board-header>
@@ -65,18 +66,16 @@ export default class BoardList extends HTMLElementCustom {
 	}
 
 	setEvent() {
-		this.addEvent('click', '.write', e => {
-			let $main	= document.querySelector('nope-main');
-			if(!!$main) {
-				$main['r']	= Route.name;
-			}
-			console.log($main)
-		})
-
 		this.addEvent('click', 'a', e => {
 			e.preventDefault();
 			const route	= Route.getRoutesByName('board-write');
-			setHistory(route.path, {type : this.type});
+			
+			let $main	= document.querySelector('nope-main');
+			if($main) {
+				setHistory(route.path, {type : this.type});
+				$main.setAttribute(NopeMain.routeName, route?.name)
+			}
+			
 		})
 	}
 

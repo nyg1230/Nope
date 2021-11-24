@@ -1,31 +1,32 @@
+import HTMLElementCustom from "../../Core/HTMLElementCustom.js";
 import Route from "../../Core/Route.js";
 import * as name from "./InnerFrameImportList.js";
 
 
-export default class NopeMain extends HTMLElement {
+export default class NopeMain extends HTMLElementCustom {
 
-	static get observedAttributes() { return ['r']; }
+	static routeName	= 'r';
+	static get observedAttributes() { return [this.routeName]; }
 
-    constructor() {
-        super();
-    }
+	setup() {
+		this.route     = Route.getRoutesByPath(window.location.pathname);
+	}
 
-    connectedCallback() {
-        const route     = Route.getRoutesByPath(window.location.pathname);
-		this.innerFrameChange(route?.name);
-    }
-	
+	template() {
+		return this.getComponent(this.route).outerHTML;
+	}
+
 	attributeChangedCallback(name, oldValue, newValue) {
-		if(name === 'r') {
-			this.innerFrameChange(newValue);
+		// 차후 변경
+		if(name === NopeMain.routeName) {
+			const route	= Route.getRoutesByName(newValue);
+			const component	= this.getComponent(route);
+			this.$root.innerHTML	= component.outerHTML;
 		}
 	}
 
-	innerFrameChange(routeName) {
-		let route	= Route.getRoutesByName(routeName);
-		this.innerHTML	= '';
-		let $innerFrame	= document.createElement(!!route ? route.tagName : 'div');
-		this.appendChild($innerFrame);
+	getComponent(route) {
+		return document.createElement(route?.tagName ?? 'div');
 	}
 
 }

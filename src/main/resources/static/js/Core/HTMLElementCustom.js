@@ -4,12 +4,11 @@ export default class HTMLElementCustom extends HTMLElement {
 		super();
 		this.styles	= {};
 		this.$root	= this.attachShadow({mode : 'open'});
-		
-		this.setup();
-		this.setEvent();
 	}
 
 	connectedCallback() {
+		this.setup();
+		this.setEvent();
 		this.$root.innerHTML	= `${this.style()}${this.template()}`;
 		this.mounted();
 	}
